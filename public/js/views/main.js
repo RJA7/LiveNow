@@ -36,7 +36,7 @@ define([
             var candidateSex = user.sex === 'Хлопець' ? 'Дівчина' : 'Хлопець';
             var query;
 
-            if (user.availableTo) {
+            if (user.availableTo || user.availableTo === 0) {
                 var date = new Date();
                 date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), user.availableTo);
                 date = date < Date.now() ? new Date(date.getTime() + 86400000) : date;
@@ -53,10 +53,10 @@ define([
                 user.matcher = matcher ? matcher._id : null;
 
                 $.ajax({
-                    url        : '/users',
-                    method     : 'PUT',
-                    data       : user,
-                    success    : function (user) {
+                    url    : '/users',
+                    method : 'PUT',
+                    data   : user,
+                    success: function (user) {
                         APP.start();
                     }
                 });
@@ -95,7 +95,7 @@ define([
 
                 $city.val(res);
                 $city.css('background-color', 'darkseagreen');
-                $city.get(0).setSelectionRange (selectStart, selectEnd);
+                $city.get(0).setSelectionRange(selectStart, selectEnd);
             });
         }
     });
