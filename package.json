@@ -1,0 +1,27 @@
+{
+  "name": "live-now",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "RJA",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "latest",
+    "express": "latest",
+    "mocha": "^2.5.3",
+    "mongoose": "latest",
+    "node-uuid": "^1.4.7",
+    "validate.js": "latest",
+    "async": "latest",
+    "supertest": "latest",
+    "express-session": "latest",
+    "connect-mongo": "latest",
+    "body-parser": "latest",
+    "request": "latest",
+    "morgan": "latest"
+  }
+}
