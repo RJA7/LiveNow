@@ -17,4 +17,4 @@ function onError(err) {
 server.on('listening', onListening);
 server.on('error', onError);
 
-server.listen(80);
+server.listen(process.env.PORT);

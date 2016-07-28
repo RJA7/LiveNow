@@ -1,5 +1,5 @@
 // app port
-process.env.PORT = process.env.PORT || '80';
+process.env.PORT = process.env.PORT || '8080';
 process.env.URL = process.env.URL || 'http://localhost/';
 
 // database credentials
