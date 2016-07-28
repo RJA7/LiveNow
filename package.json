@@ -4,14 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "heroku-prebuild": "npm install && bower install",
+    "heroku-prebuild": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "engines": {
     "node": "4.4.7",
-    "npm": "2.15.x",
-    "bower": "1.7.9"
+    "npm": "2.15.x"
   },
   "author": "RJA",
   "license": "ISC",
