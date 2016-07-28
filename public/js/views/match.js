@@ -23,8 +23,9 @@ define([
         },
 
         onEndMeeting: function () {
-            // delete match data from user and save
-            console.log('sdf')
+            $.get('users/end', function (user) {
+                APP.start();
+            });
         }
     });
 });

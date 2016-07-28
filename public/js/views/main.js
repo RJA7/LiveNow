@@ -12,7 +12,8 @@ define([
 
         events: {
             'click #save': 'onSave',
-            'change #sex': 'onSexChange'
+            'change #sex': 'onSexChange',
+            'keyup #city': 'autocomplete'
         },
 
         initialize: function (options) {
@@ -39,24 +40,23 @@ define([
                 var date = new Date();
                 date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), user.availableTo);
                 date = date < Date.now() ? new Date(date.getTime() + 86400000) : date;
-                user.availableTo = date;
+                user.availableTo = date.getTime();
             }
 
-            query = '/users?ageFrom=' + user.matcherAgeFrom +
+            query = '/users/match?ageFrom=' + user.matcherAgeFrom +
                 '&ageTo=' + user.matcherAgeTo +
                 '&city=' + user.city +
-                '&available=true' +
+                '&available=' + Date.now() +
                 '&sex=' + candidateSex;
 
-            $.get(query, function (users) {
-                users.length ? user.matcher = users[0]._id : '';
+            $.get(query, function (matcher) {
+                user.matcher = matcher ? matcher._id : null;
 
                 $.ajax({
-                    url    : '/users',
-                    method : 'PUT',
-                    data   : user,
-                    success: function (user) {
-                        console.log('saved', user);
+                    url        : '/users',
+                    method     : 'PUT',
+                    data       : user,
+                    success    : function (user) {
                         APP.start();
                     }
                 });
@@ -74,6 +74,29 @@ define([
                 $candidate.html('хлопцем');
                 $ready.html('Готова');
             }
+        },
+
+        autocomplete: function (e) {
+            var $city = $('#city');
+            var val = $city.val();
+            var selectStart;
+            var selectEnd;
+
+            if (!val) return;
+
+            $.get('/autocompletes/' + val, function (res) {
+                if (!res) {
+                    return $city.css('background-color', 'darksalmon');
+                }
+                if (e.keyCode === 8 || e.keyCode === 37 || e.keyCode === 39) return;
+
+                selectStart = val.length;
+                selectEnd = res.length;
+
+                $city.val(res);
+                $city.css('background-color', 'darkseagreen');
+                $city.get(0).setSelectionRange (selectStart, selectEnd);
+            });
         }
     });
 });

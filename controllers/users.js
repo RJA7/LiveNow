@@ -9,18 +9,14 @@ const validConstraints = {
     _id           : {numericality: {onlyInteger: true}},
     age           : {numericality: {onlyInteger: true, greaterThan: 15, lessThan: 26}},
     sex           : {inclusion: CONSTANTS.SEXES},
-    city          : {inclusion: CONSTANTS.CITIES},
+    availableTo   : {numericality: {onlyInteger: true}},
     matcherAgeFrom: {numericality: {onlyInteger: true, greaterThan: 15, lessThan: 26}},
     matcherAgeTo  : {numericality: {onlyInteger: true, greaterThan: 15, lessThan: 26}},
-    matcher       : {format: {pattern: CONSTANTS.UUID_V4_PATTERN}}
+    matcher       : {numericality: {onlyInteger: true}}
 };
 
 const requiredConstraints = {
-    _id           : {presence: true},
-    age           : {presence: true},
-    sex           : {presence: true},
-    matcherAgeFrom: {presence: true},
-    matcherAgeTo  : {presence: true}
+    _id           : {presence: true}
 };
 
 module.exports = exports = {};
@@ -36,7 +32,7 @@ function formatMongoQuery(reqQuery) {
         $gte: reqQuery.ageFrom || 16,
         $lte: reqQuery.ageTo || 25
     } : '';
-    reqQuery.available ? mongoQuery.availableTo = {$gt: Date.now()} : '';
+    reqQuery.available ? mongoQuery.availableTo = {$gt: reqQuery.available} : '';
 
     return mongoQuery;
 }
@@ -74,11 +70,30 @@ exports.fetch = function (req, res, next) {
     });
 };
 
-exports.fetchById = function (req, res, next) {
-    res.status(200).send(req.session.user);
+exports.fetchMe = function (req, res, next) {
+    const _id = req.session.user ? req.session.user._id : '0';
+
+    UserModel.findById(_id).populate('matcher').lean().exec(function (err, user) {
+        if (err) {
+            return next(err);
+        }
+
+        res.status(200).send(user);
+    });
 };
 
-exports.change = function (req, res, next) {
+exports.pushMe = function (req, res, next) {
+    const user = req.body;
+    
+    if (process.env.NODE_ENV === 'production') {
+        next(ERRORS.ERROR(403, ERRORS.FORBIDDEN));
+    }
+    
+    req.session.user = user;
+    res.status(200).send(user);
+};
+
+exports.changeMe = function (req, res, next) {
     const reqBody = req.body;
     const session = req.session;
     const user = session.user || {};
@@ -89,8 +104,8 @@ exports.change = function (req, res, next) {
         return next(ERRORS.ERROR(400, ERRORS.BAD_REQUEST, invalid));
     }
 
-    delete reqBody.matcher;
-    
+    reqBody.matcher = !reqBody.matcher ? null : reqBody.matcher;
+
     UserModel.findByIdAndUpdate(_id, reqBody, {new: true, lean: true}).exec(function (err, user) {
         if (err || !user) {
             return next(err || ERRORS.ERROR(404, ERRORS.NOT_FOUND));
@@ -101,7 +116,7 @@ exports.change = function (req, res, next) {
     });
 };
 
-exports.delete = function (req, res, next) {
+exports.deleteMe = function (req, res, next) {
     const session = req.session;
     const user = session.user || {};
     const _id = user._id;
@@ -113,5 +128,43 @@ exports.delete = function (req, res, next) {
 
         session.destroy();
         res.status(200).send(user);
+    });
+};
+
+exports.matchMe = function (req, res, next) {
+    const user = req.session.user || {};
+    const _id = user._id;
+    const reqQuery = req.query;
+    const mongoQuery = formatMongoQuery(reqQuery);
+    mongoQuery._id = {$ne: _id};
+    mongoQuery.matcher = null;
+    
+    if (!_id) {
+        return next(ERRORS.ERROR(403, ERRORS.FORBIDDEN));
+    }
+
+    UserModel.findOneAndUpdate(mongoQuery, {matcher: _id}, {lean: true, new: true}, function (err, matcher) {
+        if (err) {
+            return next(err);
+        }
+        
+        res.status(200).send(matcher);
+    });
+};
+
+exports.endMatching = function (req, res, next) {
+    const user = req.session.user || {};
+    const _id = user._id;
+
+    if (!_id) {
+        return next(ERRORS.ERROR(403, ERRORS.FORBIDDEN));
+    }
+
+    UserModel.update({$or: [{_id: _id}, {matcher: _id}]}, {matcher: null}, {lean: true, multi: true}, function (err) {
+        if (err) {
+            return next(err);
+        }
+
+        res.status(200).send({ok: 1});
     });
 };

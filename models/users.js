@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     age           : {type: Number, default: 16, min: 16, max: 25},
     sex           : {type: String, default: CONSTANTS.SEX.BOY, enum: CONSTANTS.SEXES},
     city          : {type: String, enum: CONSTANTS.CITIES},
-    availableTo   : {type: Date},
+    availableTo   : {type: Number},
     matcherAgeFrom: {type: Number, default: 16, min: 16, max: 25},
     matcherAgeTo  : {type: Number, default: 25, min: 16, max: 25},
 

@@ -23,6 +23,7 @@ exports.auth = function (req, res, next) {
         },
 
         function (response, body, cb) {
+            if (typeof body === 'object') return cb(null, body);
             try {
                 cb(null, JSON.parse(body));
             } catch (e) {

@@ -12,7 +12,7 @@ module.exports = {
     DUPLICATE_FIELD_MESSAGE: 'This {field} is already in use. Please set another {field}',
 
     ERROR: function (status, message, invalidObj) {
-        var err = new Error();
+        var err = {};
         var errors = [];
         var keysLength;
         var keys;
