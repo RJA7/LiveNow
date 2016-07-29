@@ -1,3 +1,9 @@
+<%
+var user = APP.user;
+var noMatches;
+var availableTo = Math.max(new Date().getHours() + 1, user.availableTo);
+%>
+
 <section id="matches" name="matches"></section>
 <div id="headerwrap">
     <div class="container">
@@ -9,28 +15,50 @@
             <h3>Matches</h3>
             <p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
 
-            <div class="col-lg-6 col-lg-offset-3">
-                <p>Congratulations you got a match.</p>
-                <p>Click the button bellow to contact with your partner.</p>
-                <p><button type="button" class="btn btn-warning">CONTACT</button></p>
-                <p><a href="#">GOT IT</a></p>
-            </div>
-
+            <% if (noMatches) { %>
             <div class="col-lg-6 col-lg-offset-3">
                 <p>There is no matches at that moment.</p>
                 <p>Just wait a couple of minutes.</p>
-                <p>Someone like you.</p>
-                <p><button type="button" class="btn btn-warning">EDIT</button></p>
+                <p>Someone will like you.</p>
+                <p><input type="button" class="btn btn-default" id="edit" value="EDIT" /></p>
             </div>
-
-
+            <% } else if (user && user.matcher) { %>
             <div class="col-lg-6 col-lg-offset-3">
-                <p>Age from</p>
-                <p>Age to</p>
-                <p>Ready to</p>
-                <p><button type="button" class="btn btn-warning">FIND</button></p>
+                <p>Congratulations you got a match.</p>
+                <p>Click the button bellow to contact with your partner.</p>
+                <p><input type="button" class="btn btn-default" id="contact" value="CONTACT" /></p>
+                <p><a href="#">GOT IT</a></p>
             </div>
+            <% } else { %>
+            <div class="login">
+                <h4>Partner parameters</h4>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>Age from</td>
+                        <td><input type="number" placeholder="from age" id="ageFrom" min="14" max="35" value="<%= user.matcherAgeFrom %>" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>To</td>
+                        <td><input type="number" placeholder="from to" id="ageTo" min="14" max="35" value="<%= user.matcherAgeTo %>" /></td>
+                        <td>years</td>
+                    </tr>
+                    <tr>
+                        <td>I'm ready to</td>
+                        <td><input type="number" placeholder="ready to" id="availableTo" min="0" max="24" value="<%= availableTo %>" /></td>
+                        <td>o'clock</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="button" class="btn btn-default" id="find" value="FIND" /></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
 
+            </div>
+            <% } %>
         </div>
     </div>
 </div>

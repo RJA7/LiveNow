@@ -7,13 +7,23 @@
         <br>
         <div class="row">
             <h1>LIVE NOW</h1>
-            <h3>Hello, I will help you to find</h3>
+            <br>
+            <br>
+            <h3>Hello, I will help to find you</h3>
             <h3>a partner for evening.</h3>
             <br>
+            <br>
+
+            <% if (!APP.user) { %>
             <h4>Login</h4>
+            <% } else { %>
+            <h4>Logout</h4>
+            <% } %>
+
             <div class="col-lg-6 col-lg-offset-3">
                 <img src="assets/img/vk_enter2.png" width="100" />
             </div>
+
         </div>
     </div>
 </div>
