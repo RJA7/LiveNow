@@ -50,7 +50,7 @@ define([
         },
 
         all: function () {
-            console.log(404);
+            alert(404);
             APP.navigate('home');
         }
     });

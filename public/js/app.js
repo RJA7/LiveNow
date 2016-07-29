@@ -6,8 +6,9 @@ define([
     'jQuery',
     'underscore',
     'backbone',
-    './router'
-], function ($, _, Backbone, Router) {
+    './router',
+    'views/menu'
+], function ($, _, Backbone, Router, MenuView) {
 
     APP.handleError = function errorHandler(err) {
         console.log(err);
@@ -19,16 +20,22 @@ define([
     };
 
     var initialize = function () {
-        var fragment = Backbone.history.fragment;
+        var fragment;
         new Router();
 
         Backbone.history.start({silent: true});
+        fragment = Backbone.history.fragment;
         Backbone.history.fragment = '';
 
         $.get('/users/me', function (user) {
             APP.user = user;
 
-            APP.user ? APP.navigate(fragment) : APP.navigate('home');
+            if (APP.user) {
+                new MenuView();
+                APP.navigate(fragment);
+            } else {
+                APP.navigate('home');
+            }
         });
     };
 

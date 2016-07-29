@@ -6,8 +6,6 @@ define([
 ], function ($, _, Backbone, matchesTemplate) {
 
     return Backbone.View.extend({
-        el: $('#container'),
-
         tpl: _.template(matchesTemplate),
 
         events: {
@@ -18,7 +16,7 @@ define([
         },
 
         render: function () {
-            this.$el.html(this.tpl());
+            $('#container').html(this.tpl());
         }
     });
 });
