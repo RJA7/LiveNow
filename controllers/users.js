@@ -18,10 +18,18 @@ const validConstraints = {
 
 module.exports = exports = {};
 
+function clearMatch(userId, matcherId, cb) {
+    UserModel.findByIdAndRemove(userId, function () {
+        UserModel.findByIdAndRemove(matcherId, cb);
+    })
+}
+
 exports.fetchMe = function (req, res, next) {
+    const now = req.headers['unix-date'];
     const session = req.session;
     const user = session.user || {};
     const _id = user._id;
+    let matcherId;
 
     if (!_id) {
         return next(ERRORS.ERROR(401, ERRORS.UNAUTHORIZED));
@@ -30,6 +38,13 @@ exports.fetchMe = function (req, res, next) {
     UserModel.findById(_id).populate('matcher').lean().exec(function (err, user) {
         if (err || !user) {
             return next(err || ERRORS.ERROR(404, ERRORS.NOT_FOUND));
+        }
+
+        if (user.matcher && (user.availableTo > now || user.matcher.availableTo > now)) {
+            delete user.matcher;
+            return clearMatch(_id, matcherId, function () {
+                res.status(200).send(user);
+            });
         }
 
         res.status(200).send(user);
@@ -61,6 +76,11 @@ exports.changeMe = function (req, res, next) {
         session.user = user;
         res.status(200).send(user);
     });
+};
+
+exports.logout = function (req, res) {
+    req.session.destroy();
+    res.status(200).send({ok: 1});
 };
 
 // for tests

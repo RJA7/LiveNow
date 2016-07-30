@@ -7,7 +7,7 @@ define([], function () {
 
     var validateCity = function (city) {
         if (!city) return;
-        $.get('/autocomplites/' + city + '?check=true') // todo
+        $.get('/autocomplites/' + city + '?strict=true')
             .done(function (res) {
                 return res.city ? true : APP.errorMessage('There is no such city in Ukraine.');
             });

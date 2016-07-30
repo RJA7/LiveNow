@@ -39,7 +39,12 @@ define([
         },
 
         logout: function () {
-            alert('no'); // todo
+            $
+                .get('/logout')
+                .always(function () {
+                    APP.user = null;
+                    APP.initUser('home');
+                });
         }
     });
 });

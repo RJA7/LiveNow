@@ -4,16 +4,21 @@ const CONSTANTS = require('../constants/main');
 require('../config/development');
 
 exports.find = function (req, res, next) {
-    const text = req.params.text.toLowerCase();
+    const strict = req.query.strict;
+    const text = req.params.text;
     const cities = CONSTANTS.CITIES;
     const citiesLength = cities.length;
-    let result = null;
+    let result = false;
     let i;
     
-    for (i = 0; i < citiesLength; i++) {
-        if (cities[i].toLowerCase().startsWith(text)) {
-            result = cities[i];
-            break;
+    if (strict) {
+        result = cities.indexOf(text) !== -1;
+    } else {
+        for (i = 0; i < citiesLength; i++) {
+            if (cities[i].toLowerCase().startsWith(text.toLowerCase())) {
+                result = cities[i];
+                break;
+            }
         }
     }
     

@@ -14,9 +14,7 @@ const validConstraints = {
     availableTo   : {numericality: {onlyInteger: true}},
     matcherAgeFrom: {numericality: {onlyInteger: true, greaterThan: 13, lessThan: 36}},
     matcherAgeTo  : {numericality: {onlyInteger: true, greaterThan: 13, lessThan: 36}},
-    matcher       : {numericality: {onlyInteger: true}},
-
-    available: {numericality: {onlyInteger: true}}
+    matcher       : {numericality: {onlyInteger: true}}
 };
 
 const requiredConstraints = {
@@ -26,14 +24,13 @@ const requiredConstraints = {
     city          : {presence: true},
     availableTo   : {presence: true},
     matcherAgeFrom: {presence: true},
-    matcherAgeTo  : {presence: true},
-
-    available: {presence: true} // user local Date.now() in unix format
+    matcherAgeTo  : {presence: true}
 };
 
 module.exports = exports = {};
 
 exports.match = function (req, res, next) {
+    const now = req.headers['unix-date'];
     const body = req.body;
     const user = Object.assign(req.session.user || {}, body);
     const required = validate(user, requiredConstraints);
@@ -59,7 +56,7 @@ exports.match = function (req, res, next) {
                 age           : {$gte: user.matcherAgeFrom, $lte: user.matcherAgeTo},
                 sex           : {$ne: user.sex},
                 city          : user.city,
-                availableTo   : {$gt: body.available},
+                availableTo   : {$gt: now},
                 matcherAgeFrom: {$lte: user.age},
                 matcherAgeTo  : {$gte: user.age},
                 matcher       : null
