@@ -27,11 +27,15 @@ define([
         },
 
         onAgeChange: function (e) {
-            validator.age($('#age').val());
+            var $age = $('#age');
+            !validator.age($age.val()) ? $age.val(APP.user.age || '') : '';
         },
 
         onCityChange: function (e) {
-            validator.city($('#city').val());
+            var $city = $('#city');
+            validator.city($city.val(), function (err, res) {
+                err ? $city.val(APP.user.city || '') : '';
+            });
         },
 
         onCompletes: function (e) {
@@ -41,10 +45,11 @@ define([
             var selectionEnd;
 
             if (!text) return;
-            if (this.textLength || APP.city >= selectionStart) {
+            if ((this.textLength || APP.city) >= selectionStart) {
                 this.textLength = selectionStart;
                 return;
             }
+            this.textLength = selectionStart;
 
             $
                 .get('/autocompletes/' + text)
@@ -52,7 +57,7 @@ define([
                     if (!res.city) return;
                     selectionEnd = res.city.length;
                     $city.val(res.city);
-                    $city.selectRange(selectionStart, selectionEnd); // setSelectionRange
+                    $city.get(0).setSelectionRange(selectionStart, selectionEnd);
                 });
         },
 
@@ -60,25 +65,27 @@ define([
             var user = {
                 age : $('#age').val(),
                 city: $('#city').val(),
-                sex : $('#sex').children(':selected')
+                sex : $('#sex').children(':selected').val()
             };
+            
+            validator.profileUser(user, function (err) {
+                if (err) return;
+                
+                $
+                    .ajax('/users', {
+                        type   : 'PUT',
+                        headers: {'unix-date': Date.now() / 1000},
+                        data   : user
+                    })
+                    .done(function (res) {
+                        var user = APP.user = res;
 
-            if (!validator.profileUser(user)) return;
-
-            $
-                .ajax('/users', {
-                    type   : 'PUT',
-                    headers: {'unix-date': Date.now() / 1000},
-                    data   : user
-                })
-                .done(function (res) {
-                    var user = APP.user = res;
-
-                    if (user.city || user.age) {
-                        APP.success('Ok! Now you are ready for <a href="matches">meets</a>');
-                    }
-                })
-                .fail(APP.error);
+                        if (user.city && user.age) {
+                            APP.success('Ok! Now you are ready for <a href="matches">matches</a>');
+                        }
+                    })
+                    .fail(APP.error);
+            });
         }
     });
 });

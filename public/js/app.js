@@ -1,6 +1,6 @@
 var APP = APP || {};
 APP.client_id = '5563809';
-APP.host = 'https://live-now.herokuapp.com/';
+APP.host = 'http://localhost/';  // 'https://live-now.herokuapp.com/';
 APP.vk = 'https://vk.com/id166633460';
 APP.facebook = '';
 APP.google = 'mailto:kopanskyy.roman@gmail.com';
@@ -11,26 +11,26 @@ define([
     'underscore',
     'backbone',
     './router',
-    'views/menu',
-    './helpers/messenger'
-], function ($, _, Backbone, Router, MenuView, messenger) {
+    'views/menu'
+], function ($, _, Backbone, Router, MenuView) {
 
     APP.error = function (err) {
         var res = err.responseJSON();
         if (!res) return;
         var message = res.errors && res.errors[0] ? res.errors[0] : res.message || err.statusText;
-        message ? messenger.alert('error', message) : '';
+        message ? window.alert(message) : '';
     };
 
     APP.errorMessage = function (message) {
-        messenger.alert('warning', message);
+        window.alert(message);
     };
 
     APP.success = function (message) {
-        messenger.alert('success', message);
+        window.alert(message);
     };
 
     APP.navigate = function (url) {
+        Backbone.history.fragment = '';
         Backbone.history.navigate(url, {trigger: true});
     };
 
@@ -47,7 +47,7 @@ define([
             })
             .always(function () {
                 if (user) {
-                    new MenuView();
+                    APP.menuView = new MenuView();
 
                     if (!user.age || !user.city) {
                         return APP.navigate('profile');
@@ -70,7 +70,6 @@ define([
 
         Backbone.history.start({silent: true});
         fragment = Backbone.history.fragment;
-        Backbone.history.fragment = '';
 
         APP.initUser(fragment);
     };

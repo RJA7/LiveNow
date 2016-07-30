@@ -24,33 +24,41 @@ define([
             this.render();
         },
 
-        render: function () {
-            this.$el.html(this.tpl());
+        render: function (noMatches) {
+            this.$el.html(this.tpl({noMatches: noMatches}));
         },
 
         onMatcherAgeFromChange: function (e) {
-            validator.matcherAge($('#matcherAgeFrom'));
+            var $matcherAgeFrom = $('#matcherAgeFrom');
+            var $matcherAgeTo = $('#matcherAgeTo');
+            !validator.matcherAge($matcherAgeFrom.val()) ? $matcherAgeFrom.val(14) : '';
+            $matcherAgeFrom.val() > $matcherAgeTo.val() ? $matcherAgeTo.val($matcherAgeFrom.val()) : '';
         },
 
         onMatcherAgeToChange: function (e) {
-            validator.matcherAge($('#matcherAgeTo'));
+            var $matcherAgeFrom = $('#matcherAgeFrom');
+            var $matcherAgeTo = $('#matcherAgeTo');
+            !validator.matcherAge($matcherAgeTo.val()) ? $matcherAgeTo.val(35) : '';
+            $matcherAgeFrom.val() > $matcherAgeTo.val() ? $matcherAgeFrom.val($matcherAgeTo.val()) : '';
         },
 
-        availableTo: function (e) {
-            validator.availableTo($('#availableTo'));
+        onAvailableToChange: function (e) {
+            var $availableTo = $('#availableTo');
+            !validator.availableTo($availableTo.val()) ? $availableTo.val((new Date().getHours() + 1) % 24) : '';
         },
 
         onFind: function (e) {
+            var self = this;
             var user = APP.user;
-            user.matcherAgeFrom = $('#matcherAgeFrom');
-            user.matcherAgeTo = $('#matcherAgeTo');
-            user.availableTo = $('#availableTo');
+            user.matcherAgeFrom = $('#matcherAgeFrom').val();
+            user.matcherAgeTo = $('#matcherAgeTo').val();
+            user.availableTo = $('#availableTo').val();
 
             if (!validator.matchUser(user)) return;
 
-            var now = Date.now();
-            var availableTo = new Date(now.getFullYear(), now.getMonth(), now.getDate(), user.availableTo);
-            user.availableTo = now > availableTo.getTime() ? availableTo.getTime() / 1000 + 86400 : availableTo.getTime();
+            var now = new Date();
+            var availableTo = new Date(now.getFullYear(), now.getMonth(), now.getDate(), user.availableTo).getTime();
+            user.availableTo = now.getTime() > availableTo ? availableTo / 1000 + 86400 : availableTo / 1000;
 
             $
                 .ajax('/matches', {
@@ -59,13 +67,15 @@ define([
                     headers: {'unix-date': now / 1000}
                 })
                 .done(function (res) {
+                    var noMatches = !res.matcher;
                     APP.user = res;
-                    APP.navigate('matches');
+                    self.render(noMatches);
                 })
                 .fail(APP.error)
         },
 
         onGotIt: function (e) {
+            var self = this;
             e.preventDefault();
 
             $
@@ -75,7 +85,7 @@ define([
                 })
                 .done(function (res) {
                     APP.user = res;
-                    APP.navigate('matches');
+                    self.render();
                 })
                 .fail(APP.error)
         },

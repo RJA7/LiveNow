@@ -1,7 +1,7 @@
 <%
 var user = APP.user;
 var boySelected, girlSelected;
-user.sex == 'Girl' ? boySelected = 'selected' : girlSelected = 'selected';
+user.sex == 'Girl' ? girlSelected = 'selected' : boySelected = 'selected';
 %>
 
 <section id="profile" name="profile"></section>
@@ -28,7 +28,7 @@ user.sex == 'Girl' ? boySelected = 'selected' : girlSelected = 'selected';
                     </tr>
                     <tr>
                         <td>City</td>
-                        <td><input type="text" placeholder="city" id="city" value="<%= user.city %>"/></td>
+                        <td><input type="text" placeholder="city" id="city" value="<%- user.city %>"/></td>
                     </tr>
                     <tr>
                         <td>Sex</td>

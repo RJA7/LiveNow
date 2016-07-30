@@ -35,6 +35,7 @@ exports.match = function (req, res, next) {
     const user = Object.assign(req.session.user || {}, body);
     const required = validate(user, requiredConstraints);
     const invalid = validate(user, validConstraints);
+    let updatedUser;
     let userMatcher;
     let query;
 
@@ -51,27 +52,29 @@ exports.match = function (req, res, next) {
             UserModel.findByIdAndUpdate(user._id, user, {lean: true, new: true}, cb);
         },
 
-        function (user, cb) {
+        function (updated, cb) {
+            updatedUser = updated;
             query = {
-                age           : {$gte: user.matcherAgeFrom, $lte: user.matcherAgeTo},
-                sex           : {$ne: user.sex},
-                city          : user.city,
+                age           : {$gte: updatedUser.matcherAgeFrom, $lte: updatedUser.matcherAgeTo},
+                sex           : {$ne: updatedUser.sex},
+                city          : updatedUser.city,
                 availableTo   : {$gt: now},
-                matcherAgeFrom: {$lte: user.age},
-                matcherAgeTo  : {$gte: user.age},
+                matcherAgeFrom: {$lte: updatedUser.age},
+                matcherAgeTo  : {$gte: updatedUser.age},
                 matcher       : null
             };
-            UserModel.findOneAndUpdate(query, {matcher: user._id}, {lean: true, new: true}, cb);
+            UserModel.findOneAndUpdate(query, {matcher: updatedUser._id}, {lean: true, new: true}, cb);
         },
 
         function (matcher, cb) {
             userMatcher = matcher;
-            matcher ? UserModel.findByIdAndUpdate(user._id, {matcher: matcher._id}, {lean: true, new: true}, cb) : cb(null, user);
+            matcher ? UserModel.findByIdAndUpdate(user._id, {matcher: matcher._id}, {lean: true, new: true}, cb) :
+                cb(null, updatedUser);
         },
 
-        function (user) {
-            user.matcher = userMatcher ? userMatcher : null;
-            res.status(200).send(user);
+        function (updatedUser) {
+            updatedUser.matcher = userMatcher ? userMatcher : null;
+            res.status(200).send(updatedUser);
         }
     ], next);
 };

@@ -40,9 +40,11 @@ define([
 
         logout: function () {
             $
-                .get('/logout')
+                .get('/users/logout')
                 .always(function () {
                     APP.user = null;
+                    APP.menuView ? APP.menuView.undelegateEvents() : '';
+                    $('#menu').empty();
                     APP.initUser('home');
                 });
         }

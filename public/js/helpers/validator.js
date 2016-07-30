@@ -5,13 +5,17 @@ define([], function () {
         return age >= 14 && age <= 35 ? true : APP.errorMessage('Age should be within 14 to 35 years.');
     };
 
-    var validateCity = function (city) {
-        if (!city) return;
-        
+    var validateCity = function (city, cb) {
+        if (!city) return cb({});
+
         $
-            .get('/autocomplites/' + city + '?strict=true')
+            .get('/autocompletes/' + city + '?strict=true')
             .done(function (res) {
-                return res.city ? true : APP.errorMessage('There is no such city in Ukraine.');
+                if (!res.city) {
+                    APP.errorMessage('There is no such city in Ukraine.');
+                    return cb({});
+                }
+                cb(null, res);
             });
     };
 
@@ -21,13 +25,13 @@ define([], function () {
     };
 
     var validateAvailableTo = function (availableTo) {
-        if (!age) return;
-        return age >= 14 && age <= 35 ? true : APP.errorMessage('Partner age should be within 14 to 35 years.');
+        if (!availableTo) return;
+        return availableTo >= 0 && availableTo <= 23 ? true : APP.errorMessage('Specify correct time you are ready, within 0 to 23 hours.');
     };
 
     var validateMatchUser = function (user) {
         if (!user.city || !user.age) {
-            return APP.errorMessage('Fill your profile before.');
+            return APP.errorMessage('Fill your <a href="#profile">profile</a> before.');
         }
 
         if (!user.availableTo) {
@@ -45,11 +49,11 @@ define([], function () {
         return true;
     };
 
-    var validateProfileUser = function (user) {
-        if (user.city && !validateCity(user.city)) return;
-        if (user.age && !validateAge(user.age)) return;
+    var validateProfileUser = function (user, cb) {
+        if (user.age && !validateAge(user.age)) return cb({});
+        if (user.city) return validateCity(user.city, cb);
 
-        return true;
+        cb(null, {});
     };
 
     return {

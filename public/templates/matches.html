@@ -1,10 +1,11 @@
 <%
 var user = APP.user;
 var noMatches;
-var defaultAvailableTo = Math.max(new Date().getHours() + 1, user.availableTo);
 
-var available = user.available && user.available > Date.now() * 1000;
-var sAvailable = available ? 'available to ' + new Date(user.availableTo).getHours() + ' o\'clock' : 'not available';
+var available = user.availableTo && user.availableTo * 1000 > Date.now();
+var sAvailable = available ? 'available to ' + new Date(user.availableTo * 1000).getHours() + " o'clock" : 'not available';
+
+var defaultAvailableTo = available ? new Date(user.availableTo * 1000).getHours() : (new Date().getHours() + 1) % 24;
 %>
 
 <section id="matches" name="matches"></section>
@@ -23,7 +24,7 @@ var sAvailable = available ? 'available to ' + new Date(user.availableTo).getHou
                 <p>There is no matches at that moment.</p>
                 <p>Just wait a couple of minutes.</p>
                 <p>Someone will find you.</p>
-                <p>You are <%= sAvailable %>>.</p>
+                <p>You are <%= sAvailable %>.</p>
                 <p><input type="button" class="btn btn-default" id="edit" value="EDIT" /></p>
             </div>
             <% } else if (user && user.matcher) { %>
@@ -38,10 +39,10 @@ var sAvailable = available ? 'available to ' + new Date(user.availableTo).getHou
                 <h4>Partner parameters</h4>
                 <table>
                     <tbody>
-                    <% if (available) %>
+                    <% if (available) { %>
                     <tr>
                         <td></td>
-                        <td><p>You are <%= sAvailable %>>.</p></td>
+                        <td><p>You are <%= sAvailable %>.</p></td>
                         <td></td>
                     </tr>
                     <% } %>
@@ -57,7 +58,7 @@ var sAvailable = available ? 'available to ' + new Date(user.availableTo).getHou
                     </tr>
                     <tr>
                         <td>I'm ready to</td>
-                        <td><input type="number" placeholder="ready to" id="availableTo" min="0" max="24" value="<%= defaultAvailableTo %>" /></td>
+                        <td><input type="number" placeholder="ready to" id="availableTo" min="0" max="23" value="<%= defaultAvailableTo %>" /></td>
                         <td>o'clock</td>
                     </tr>
                     <tr>
