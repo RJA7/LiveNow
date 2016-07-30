@@ -21,15 +21,23 @@ define([
         },
 
         onAuth: function (e) {
-            APP.user ? this.login() : this.logout();
+            APP.user ? this.logout() : this.login();
         },
 
         login: function () {
-            window.open()
+            var popup = window.open('https://oauth.vk.com/authorize?' +
+                'client_id=' + APP.client_id +
+                '&scope=notifications' +
+                '&redirect_uri=' + APP.host + 'vk/auth', 'VK', 'width=800, height=600');
+
+            popup.onClose = function(){
+                popup.close();
+                APP.initUser('home');
+            }
         },
 
         logout: function () {
-            alert('no');
+            alert('no'); // todo
         }
     });
 });

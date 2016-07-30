@@ -1,13 +1,12 @@
 require.config({
     paths: {
-        underscore : './libs/underscore/underscore-min',
-        backbone   : './libs/backbone/backbone-min',
-        jQuery     : './libs/jquery/dist/jquery.min',
-        text       : './libs/text/text',
-        // models     : './models',
-
-        templates: '../templates',
-        views    : './views'
+        underscore: './libs/underscore/underscore-min',
+        backbone  : './libs/backbone/backbone-min',
+        jQuery    : './libs/jquery/dist/jquery.min',
+        text      : './libs/text/text',
+        templates : '../templates',
+        views     : './views',
+        validator : './helpers/validator'
 
         // collections: './collections'
     },

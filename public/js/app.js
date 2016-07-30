@@ -12,22 +12,19 @@ define([
 
     APP.handleError = function errorHandler(err) {
         console.log(err);
-        APP.start();
+    };
+    
+    APP.errorMessage = function errorHandler(message) {
+        console.log(message);
     };
     
     APP.navigate = function (url) {
         Backbone.history.navigate(url, {trigger: true});  
     };
-
-    var initialize = function () {
-        var fragment;
+    
+    APP.initUser = function (fragment) {
         var user;
-        new Router();
-
-        Backbone.history.start({silent: true});
-        fragment = Backbone.history.fragment;
-        Backbone.history.fragment = '';
-
+        
         $.get('/users')
             .done(function (res) {
                 APP.user = user = res;
@@ -49,6 +46,17 @@ define([
                     APP.navigate('home');
                 }
             });
+    };
+
+    var initialize = function () {
+        var fragment;
+        new Router();
+
+        Backbone.history.start({silent: true});
+        fragment = Backbone.history.fragment;
+        Backbone.history.fragment = '';
+        
+        APP.initUser(fragment);
     };
 
     return {
