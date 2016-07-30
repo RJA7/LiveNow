@@ -11,6 +11,7 @@ define([
         tpl: _.template(aboutTemplate),
 
         events: {
+            'click .vk': 'onContact'
         },
 
         initialize: function (options) {
@@ -19,6 +20,11 @@ define([
 
         render: function () {
             this.$el.html(this.tpl());
+        },
+        
+        onContact: function (e) {
+            e.preventDefault();
+            window.open(APP.vk);
         }
     });
 });

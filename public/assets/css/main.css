@@ -39,7 +39,7 @@ p {
 
 /* Links */
 a {
-    color: #f85c37;
+    color: darkgrey;
     word-wrap: break-word;
 
     -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;

@@ -1,6 +1,7 @@
 var APP = APP || {};
 APP.client_id = '5563809';
 APP.host = 'https://live-now.herokuapp.com/';
+APP.vk = 'https://vk.com/id166633460';
 
 define([
     'jQuery',
