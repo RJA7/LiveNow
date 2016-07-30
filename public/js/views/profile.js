@@ -14,7 +14,8 @@ define([
         events: {
             'change #age' : 'onAgeChange',
             'change #city': 'onCityChange',
-            'click #save' : 'onSave'
+            'click #save' : 'onSave',
+            'keyup #city' : 'onCompletes'
         },
 
         initialize: function (options) {
@@ -31,6 +32,28 @@ define([
 
         onCityChange: function (e) {
             validator.city($('#city').val());
+        },
+
+        onCompletes: function (e) {
+            var $city = $('#city');
+            var text = $city.val();
+            var selectionStart = text.length;
+            var selectionEnd;
+
+            if (!text) return;
+            if (this.textLength || APP.city >= selectionStart) {
+                this.textLength = selectionStart;
+                return;
+            }
+
+            $
+                .get('/autocompletes/' + text)
+                .done(function (res) {
+                    if (!res.city) return;
+                    selectionEnd = res.city.length;
+                    $city.val(res.city);
+                    
+                });
         },
 
         onSave: function (e) {

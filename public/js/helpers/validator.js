@@ -7,7 +7,9 @@ define([], function () {
 
     var validateCity = function (city) {
         if (!city) return;
-        $.get('/autocomplites/' + city + '?strict=true')
+        
+        $
+            .get('/autocomplites/' + city + '?strict=true')
             .done(function (res) {
                 return res.city ? true : APP.errorMessage('There is no such city in Ukraine.');
             });
@@ -51,11 +53,11 @@ define([], function () {
     };
 
     return {
-        age : validateAge,
-        city: validateCity,
-        matcherAge: validateMatcherAge,
+        age        : validateAge,
+        city       : validateCity,
+        matcherAge : validateMatcherAge,
         availableTo: validateAvailableTo,
-        matchUser: validateMatchUser,
+        matchUser  : validateMatchUser,
         profileUser: validateProfileUser
     }
 });
