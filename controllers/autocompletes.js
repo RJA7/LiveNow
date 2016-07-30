@@ -1,12 +1,13 @@
 'use strict';
 
 const CONSTANTS = require('../constants/main');
+require('../config/development');
 
 exports.find = function (req, res, next) {
     const text = req.params.text.toLowerCase();
     const cities = CONSTANTS.CITIES;
     const citiesLength = cities.length;
-    let result;
+    let result = null;
     let i;
     
     for (i = 0; i < citiesLength; i++) {
@@ -16,5 +17,5 @@ exports.find = function (req, res, next) {
         }
     }
     
-    res.status(200).send(result);
+    res.status(200).send({city: result});
 };

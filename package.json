@@ -28,7 +28,9 @@
     "connect-mongo": "latest",
     "body-parser": "latest",
     "request": "latest",
-    "morgan": "latest"
+    "morgan": "latest",
+    "helmet": "latest",
+    "winston": "latest"
   },
   "devDependencies": {
     "chai": "latest",
