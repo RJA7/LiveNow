@@ -2,6 +2,9 @@ var APP = APP || {};
 APP.client_id = '5563809';
 APP.host = 'https://live-now.herokuapp.com/';
 APP.vk = 'https://vk.com/id166633460';
+APP.facebook = '';
+APP.google = 'mailto:kopanskyy.roman@gmail.com';
+APP.twitter = '';
 
 define([
     'jQuery',
