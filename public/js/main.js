@@ -3,6 +3,7 @@ require.config({
         underscore: './libs/underscore/underscore-min',
         backbone  : './libs/backbone/backbone-min',
         jQuery    : './libs/jquery/dist/jquery.min',
+        toastr    : './libs/toastr/toastr',
         text      : './libs/text/text',
         templates : '../templates',
         views     : './views',

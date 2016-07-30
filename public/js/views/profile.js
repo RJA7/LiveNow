@@ -52,7 +52,7 @@ define([
                     if (!res.city) return;
                     selectionEnd = res.city.length;
                     $city.val(res.city);
-                    
+                    $city.selectRange(selectionStart, selectionEnd); // setSelectionRange
                 });
         },
 
