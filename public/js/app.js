@@ -11,19 +11,23 @@ define([
     'underscore',
     'backbone',
     './router',
-    'views/menu'
-], function ($, _, Backbone, Router, MenuView) {
+    'views/menu',
+    './helpers/messenger'
+], function ($, _, Backbone, Router, MenuView, messenger) {
 
     APP.error = function (err) {
-        console.log(err);
+        var res = err.responseJSON();
+        if (!res) return;
+        var message = res.errors && res.errors[0] ? res.errors[0] : res.message || err.statusText;
+        message ? messenger.alert('error', message) : '';
     };
 
     APP.errorMessage = function (message) {
-        console.log(message);
+        messenger.alert('warning', message);
     };
 
     APP.success = function (message) {
-        console.log(message);
+        messenger.alert('success', message);
     };
 
     APP.navigate = function (url) {
@@ -41,7 +45,6 @@ define([
             .done(function (res) {
                 APP.user = user = res;
             })
-            .fail(APP.error)
             .always(function () {
                 if (user) {
                     new MenuView();
