@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 const agent = require('../agent');
 
 describe('Matches Handler', function () {
-    const availableTo = Math.floor((Date.now() + 86400000) / 1000);
+    const availableTo =(Date.now() + 86400000) / 1000;
     const user = {
         _id: '7777777',
         sex: 'Boy',
@@ -41,10 +41,9 @@ describe('Matches Handler', function () {
     });
 
     it('should update user without matcher', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now()})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -62,10 +61,9 @@ describe('Matches Handler', function () {
     });
 
     it('should match users', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now() / 1000})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -84,8 +82,6 @@ describe('Matches Handler', function () {
     });
 
     it('should clear match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .get('/matches')
             .send(user)
@@ -110,10 +106,9 @@ describe('Matches Handler', function () {
     });
 
     it('should not match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now()})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -130,10 +125,9 @@ describe('Matches Handler', function () {
     });
 
     it('should not match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now()})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -150,10 +144,9 @@ describe('Matches Handler', function () {
     });
 
     it('should not match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now()})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -166,14 +159,13 @@ describe('Matches Handler', function () {
     });
 
     it('should update candidate', function (done) {
-        UserModel.findByIdAndUpdate(candidate._id, {availableTo: Math.floor(Date.now() / 1000) + 1}, done);
+        UserModel.findByIdAndUpdate(candidate._id, {availableTo: Date.now() / 1000 + 1}, done);
     });
 
     it('should match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now() / 1000})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -190,10 +182,9 @@ describe('Matches Handler', function () {
     });
 
     it('should not match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now()})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -212,10 +203,9 @@ describe('Matches Handler', function () {
     });
 
     it('should not match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now()})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -232,10 +222,9 @@ describe('Matches Handler', function () {
     });
 
     it('should not match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now()})
             .send(user)
             .expect(200)
             .end(function (err, res) {
@@ -254,10 +243,9 @@ describe('Matches Handler', function () {
     });
 
     it('should match', function (done) {
-        user.available = Math.floor(Date.now() / 1000);
-
         agent
             .post('/matches')
+            .set({'unix-date': Date.now() / 1000})
             .send(user)
             .expect(200)
             .end(function (err, res) {

@@ -22,12 +22,12 @@ describe('Autocompletes Handler', function () {
     it('should check city availability', function (done) {
 
         agent
-            .get('/autocompletes/novoyk')
+            .get('/autocompletes/novoy?strict=true')
             .expect(200)
             .end(function (err, res) {
                 var body = res.body;
 
-                expect(body).to.eql({city: null});
+                expect(body).to.eql({city: false});
 
                 done(err);
             });

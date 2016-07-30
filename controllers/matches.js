@@ -11,7 +11,7 @@ const validConstraints = {
     age           : {numericality: {onlyInteger: true, greaterThan: 13, lessThan: 36}},
     sex           : {inclusion: CONSTANTS.SEXES},
     city          : {inclusion: CONSTANTS.CITIES},
-    availableTo   : {numericality: {onlyInteger: true}},
+    availableTo   : {numericality: true},
     matcherAgeFrom: {numericality: {onlyInteger: true, greaterThan: 13, lessThan: 36}},
     matcherAgeTo  : {numericality: {onlyInteger: true, greaterThan: 13, lessThan: 36}},
     matcher       : {numericality: {onlyInteger: true}}
