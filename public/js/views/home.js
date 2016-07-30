@@ -6,6 +6,8 @@ define([
 ], function ($, _, Backbone, homeTemplate) {
 
     return Backbone.View.extend({
+        el: $('#container'),
+        
         tpl: _.template(homeTemplate),
 
         events: {
@@ -17,7 +19,7 @@ define([
         },
 
         render: function () {
-            $('#container').html(this.tpl());
+            this.$el.html(this.tpl());
         },
 
         onAuth: function (e) {

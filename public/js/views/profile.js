@@ -7,6 +7,8 @@ define([
 ], function ($, _, Backbone, profileTemplate, validator) {
 
     return Backbone.View.extend({
+        el: $('#container'),
+
         tpl: _.template(profileTemplate),
 
         events: {
@@ -20,7 +22,7 @@ define([
         },
 
         render: function () {
-            $('#container').html(this.tpl());
+            this.$el.html(this.tpl());
         },
 
         onAgeChange: function (e) {
@@ -33,18 +35,19 @@ define([
 
         onSave: function (e) {
             var user = {
-                age: $('#age').val(),
+                age : $('#age').val(),
                 city: $('#city').val(),
-                sex: $('#sex').children(':selected')
+                sex : $('#sex').children(':selected')
             };
 
             if (!validator.profileUser(user)) return;
 
-            $.ajax('/users', {
-                type: 'PUT',
-                headers: {'date': Date.now() / 1000},
-                data: user
-            })
+            $
+                .ajax('/users', {
+                    type   : 'PUT',
+                    headers: {'unix-date': Math.floor(Date.now() / 1000)},
+                    data   : user
+                })
                 .done(function (res) {
                     var user = APP.user = res;
 

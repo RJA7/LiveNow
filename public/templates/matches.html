@@ -1,7 +1,10 @@
 <%
 var user = APP.user;
 var noMatches;
-var availableTo = Math.max(new Date().getHours() + 1, user.availableTo);
+var defaultAvailableTo = Math.max(new Date().getHours() + 1, user.availableTo);
+
+var available = user.available && user.available > Date.now() * 1000;
+var sAvailable = available ? 'available to ' + new Date(user.availableTo).getHours() + ' o\'clock' : 'not available';
 %>
 
 <section id="matches" name="matches"></section>
@@ -19,7 +22,8 @@ var availableTo = Math.max(new Date().getHours() + 1, user.availableTo);
             <div class="col-lg-6 col-lg-offset-3">
                 <p>There is no matches at that moment.</p>
                 <p>Just wait a couple of minutes.</p>
-                <p>Someone will like you.</p>
+                <p>Someone will find you.</p>
+                <p>You are <%= sAvailable %>>.</p>
                 <p><input type="button" class="btn btn-default" id="edit" value="EDIT" /></p>
             </div>
             <% } else if (user && user.matcher) { %>
@@ -27,26 +31,33 @@ var availableTo = Math.max(new Date().getHours() + 1, user.availableTo);
                 <p>Congratulations you got a match.</p>
                 <p>Click the button bellow to contact with your partner.</p>
                 <p><input type="button" class="btn btn-default" id="contact" value="CONTACT" /></p>
-                <p><a href="#">GOT IT</a></p>
+                <p><a href="#" id="gotIt">GOT IT</a></p>
             </div>
             <% } else { %>
             <div class="login">
                 <h4>Partner parameters</h4>
                 <table>
                     <tbody>
+                    <% if (available) %>
+                    <tr>
+                        <td></td>
+                        <td><p>You are <%= sAvailable %>>.</p></td>
+                        <td></td>
+                    </tr>
+                    <% } %>
                     <tr>
                         <td>Age from</td>
-                        <td><input type="number" placeholder="from age" id="ageFrom" min="14" max="35" value="<%= user.matcherAgeFrom %>" /></td>
+                        <td><input type="number" placeholder="from age" id="matcherAgeFrom" min="14" max="35" value="<%= user.matcherAgeFrom %>" /></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>To</td>
-                        <td><input type="number" placeholder="from to" id="ageTo" min="14" max="35" value="<%= user.matcherAgeTo %>" /></td>
+                        <td><input type="number" placeholder="from to" id="matcherAgeTo" min="14" max="35" value="<%= user.matcherAgeTo %>" /></td>
                         <td>years</td>
                     </tr>
                     <tr>
                         <td>I'm ready to</td>
-                        <td><input type="number" placeholder="ready to" id="availableTo" min="0" max="24" value="<%= availableTo %>" /></td>
+                        <td><input type="number" placeholder="ready to" id="availableTo" min="0" max="24" value="<%= defaultAvailableTo %>" /></td>
                         <td>o'clock</td>
                     </tr>
                     <tr>
@@ -56,7 +67,6 @@ var availableTo = Math.max(new Date().getHours() + 1, user.availableTo);
                     </tr>
                     </tbody>
                 </table>
-
             </div>
             <% } %>
         </div>

@@ -13,7 +13,7 @@ define([
     APP.error = function (err) {
         console.log(err);
     };
-    
+
     APP.errorMessage = function (message) {
         console.log(message);
     };
@@ -21,18 +21,19 @@ define([
     APP.success = function (message) {
         console.log(message);
     };
-    
+
     APP.navigate = function (url) {
-        Backbone.history.navigate(url, {trigger: true});  
+        Backbone.history.navigate(url, {trigger: true});
     };
-    
+
     APP.initUser = function (fragment) {
         var user;
-        
-        $.ajax('/users', {
-            type: 'GET',
-            headers: {'date': Date.now() / 1000}
-        })
+
+        $
+            .ajax('/users', {
+                type   : 'GET',
+                headers: {'unix-date': Math.floor(Date.now() / 1000)}
+            })
             .done(function (res) {
                 APP.user = user = res;
             })
@@ -63,7 +64,7 @@ define([
         Backbone.history.start({silent: true});
         fragment = Backbone.history.fragment;
         Backbone.history.fragment = '';
-        
+
         APP.initUser(fragment);
     };
 
