@@ -8,7 +8,7 @@ module.exports = function () {
         resave           : false, /* ATTENTION: this must be discuss for every project */
         rolling          : true,
         saveUninitialized: false, /* ATTENTION: this must be discuss for every project */
-        secret           : 'secret key for live now asdjaksdkansjdkasjnd', /* ATTENTION: this must be unique for every project */
+        secret           : process.env.sessionSecret, /* ATTENTION: this must be unique for every project */
         cookie           : {
             maxAge: 60 * 60 * 24 * 1000
         },

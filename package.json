@@ -5,8 +5,12 @@
   "main": "server.js",
   "scripts": {
     "heroku-prebuild": "npm install",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node ./node_modules/mocha/bin/_mocha -- test/**/*.js",
+    "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
+    "test-win": "node ./node_modules/mocha/bin/_mocha -- test/**/*.js",
+    "coverage": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- test/**/*.js",
+    "coverage-win": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- test/**/*.js"
   },
   "engines": {
     "node": "4.4.7",
@@ -15,18 +19,21 @@
   "author": "RJA",
   "license": "ISC",
   "dependencies": {
-    "chai": "latest",
     "express": "latest",
-    "mocha": "^2.5.3",
     "mongoose": "latest",
     "node-uuid": "^1.4.7",
     "validate.js": "latest",
     "async": "latest",
-    "supertest": "latest",
     "express-session": "latest",
     "connect-mongo": "latest",
     "body-parser": "latest",
     "request": "latest",
     "morgan": "latest"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "istanbul": "0.4.3",
+    "mocha": "2.4.5",
+    "supertest": "1.2.0"
   }
 }

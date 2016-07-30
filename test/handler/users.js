@@ -10,23 +10,7 @@ describe('Users Handler', function () {
     before(dbHelper.clearDB);
     
     it('should create user', function (done) {
-        agent
-            .post('/users')
-            .send(user)
-            .expect(201)
-            .end(function (err, res) {
-                const body = res.body;
-                
-                expect(body).to.have.property('_id', user._id);
-                expect(body).to.have.property('age', 16);
-                expect(body).to.have.property('matcherAgeFrom', 16);
-                expect(body).to.have.property('matcherAgeTo', 25);
-                expect(body).to.have.property('sex', 'Хлопець');
-
-                user = body;
-
-                done(err);
-            });
+        UserModel.create(user, done);
     });
 
     it('should login user', function (done) {
@@ -34,79 +18,21 @@ describe('Users Handler', function () {
             .post('/users/login')
             .send(user)
             .expect(200)
-            .end(function (err, res) {
-                const body = res.body;
-
-                expect(body).to.have.property('_id', user._id);
-                expect(body).to.have.property('age', user.age);
-                expect(body).to.have.property('matcherAgeFrom', user.matcherAgeFrom);
-                expect(body).to.have.property('matcherAgeTo', user.matcherAgeTo);
-                expect(body).to.have.property('sex', user.sex);
-
-                done(err);
-            });
+            .end(done);
     });
 
 
     it('should fetch current user', function (done) {
         agent
-            .get('/users/me')
+            .get('/users')
             .expect(200)
             .end(function (err, res) {
                 const body = res.body;
 
-                expect(body).to.have.property('_id', user._id);
-                expect(body).to.have.property('age', user.age);
-                expect(body).to.have.property('matcherAgeFrom', user.matcherAgeFrom);
-                expect(body).to.have.property('matcherAgeTo', user.matcherAgeTo);
-                expect(body).to.have.property('sex', user.sex);
-
-                done(err);
-            });
-    });
-
-    it('should fetch users by criteria', function (done) {
-        agent
-            .get('/users?_id=' + user._id)
-            .expect(200)
-            .end(function (err, res) {
-                const body = res.body[0];
-
                 expect(body).to.have.property('_id');
-                expect(body).to.have.property('age', user.age);
-                expect(body).to.have.property('matcherAgeFrom', user.matcherAgeFrom);
-                expect(body).to.have.property('matcherAgeTo', user.matcherAgeTo);
-                expect(body).to.have.property('sex', user.sex);
-
-                done(err);
-            });
-    });
-
-    it('should fetch users by criteria', function (done) {
-        agent
-            .get('/users?ageTo=' + user.age)
-            .expect(200)
-            .end(function (err, res) {
-                const body = res.body[0];
-
-                expect(body).to.have.property('_id');
-                expect(body).to.have.property('age', user.age);
-                expect(body).to.have.property('matcherAgeFrom', user.matcherAgeFrom);
-                expect(body).to.have.property('matcherAgeTo', user.matcherAgeTo);
-                expect(body).to.have.property('sex', user.sex);
-
-                done(err);
-            });
-    });
-
-    it('should not fetch users by criteria', function (done) {
-        agent
-            .get('/users?ageTo=' + (user.age - 1))
-            .expect(200)
-            .end(function (err, res) {
-                const body = res.body;
-
-                expect(body).to.be.an('array').with.length(0);
+                expect(body).to.have.property('sex', 'Boy');
+                expect(body).to.have.property('matcherAgeFrom', 14);
+                expect(body).to.have.property('matcherAgeTo', 35);
 
                 done(err);
             });
@@ -126,45 +52,31 @@ describe('Users Handler', function () {
             });
     });
 
-    it('should update user', function (done) {
+    it('should fail to update user with bad city', function (done) {
 
         agent
             .put('/users')
-            .send({availableTo: Date.now() + 36000000, city: 'Новояворівськ'})
-            .expect(200)
+            .send({city: 'badCity'})
+            .expect(400)
             .end(function (err, res) {
                 const body = res.body;
 
-                expect(body).to.have.property('availableTo');
-                expect(body).to.have.property('city', 'Новояворівськ');
+                expect(body.errors[0]).to.equal('badCity is not included in the list');
 
                 done(err);
             });
     });
 
-    it.skip('should find users by criteria', function (done) {
+    it('should not update user matcher', function (done) {
 
         agent
-            .get('/users?ageFrom=' + 24 + '&sex=Дівчина' + '&city=' + 'Новояворівськ' + '&available=' + Date.now())
+            .put('/users')
+            .send({matcher: '123'})
             .expect(200)
             .end(function (err, res) {
                 const body = res.body;
 
-                expect(body).to.be.an('array').with.length(1);
-
-                done(err);
-            });
-    });
-
-    it('should delete current user', function (done) {
-        agent
-            .delete('/users')
-            .expect(200)
-            .end(function (err, res) {
-                const body = res.body;
-
-                expect(body).to.have.property('_id');
-                expect(body).to.have.property('age', 25);
+                expect(body).to.have.property('matcher', null);
 
                 done(err);
             });

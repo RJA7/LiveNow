@@ -16,34 +16,37 @@ user.sex == 'Girl' ? boySelected = 'selected' : girlSelected = 'selected';
             <p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i
                     class="icon icon-circle"></i></p>
 
-                <br>
+            <br>
 
-                <div class="login">
-                    <h4>Your parameters</h4>
-                    <table style="margin-left: 30px">
-                        <tr>
-                            <td>Age</td>
-                            <td><input type="number" placeholder="age" id="age" min="14" max="35" value="<%= user.age %>" /></td>
-                        </tr>
-                        <tr>
-                            <td>City</td>
-                            <td><input type="text" placeholder="city" id="city"  value="<%= user.city %>" /></td>
-                        </tr>
-                        <tr>
-                            <td>Sex</td>
-                            <td>
-                                <select id="sex">
-                                    <option value="Boy" <%= boySelected %>>Boy</option>
-                                    <option value="Girl" <%= girlSelected %>>Girl</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type="button" class="btn btn-default" id="save" value="Save"><br></td>
-                        </tr>
-                    </table>
-                </div>
+            <div class="login">
+                <h4>Your parameters</h4>
+                <table style="margin-left: 30px">
+                    <tr>
+                        <td>Age</td>
+                        <td><input type="number" placeholder="age" id="age" min="14" max="35" value="<%= user.age %>"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td><input type="text" placeholder="city" id="city" value="<%= user.city %>"/></td>
+                    </tr>
+                    <tr>
+                        <td>Sex</td>
+                        <td>
+                            <select id="sex">
+                                <option value="Boy"
+                                <%= boySelected %>>Boy</option>
+                                <option value="Girl"
+                                <%= girlSelected %>>Girl</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="button" class="btn btn-default" id="save" value="Save"><br></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

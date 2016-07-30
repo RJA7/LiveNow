@@ -2,6 +2,8 @@
 process.env.PORT = process.env.PORT || '80';
 process.env.URL = process.env.URL || 'http://localhost/';
 
+process.env.sessionSecret = 'secret key for live now asdjaksdkansjdkasjnd';
+
 // database credentials
 process.env.DB_HOST = process.env.DB_HOST || '127.0.0.1';
 process.env.DB_NAME = process.env.DB_NAME || 'live_now_local';

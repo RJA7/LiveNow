@@ -42,7 +42,7 @@ exports.auth = function (req, res, next) {
         },
 
         function (user, cb) {
-            if (!user) return UserModel.create({_id: '' + _id}, cb);
+            if (!user) return UserModel.create({_id: _id}, cb);
             cb(null, user);
         },
 
