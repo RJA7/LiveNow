@@ -10,11 +10,15 @@ define([
     'views/menu'
 ], function ($, _, Backbone, Router, MenuView) {
 
-    APP.handleError = function errorHandler(err) {
+    APP.error = function (err) {
         console.log(err);
     };
     
-    APP.errorMessage = function errorHandler(message) {
+    APP.errorMessage = function (message) {
+        console.log(message);
+    };
+
+    APP.success = function (message) {
         console.log(message);
     };
     
@@ -25,10 +29,14 @@ define([
     APP.initUser = function (fragment) {
         var user;
         
-        $.get('/users')
+        $.ajax('/users', {
+            type: 'GET',
+            headers: {'date': Date.now() / 1000}
+        })
             .done(function (res) {
                 APP.user = user = res;
             })
+            .fail(APP.error)
             .always(function () {
                 if (user) {
                     new MenuView();

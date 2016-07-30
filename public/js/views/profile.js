@@ -10,7 +10,9 @@ define([
         tpl: _.template(profileTemplate),
 
         events: {
-            'change #age': 'onAgeChange'
+            'change #age' : 'onAgeChange',
+            'change #city': 'onCityChange',
+            'click #save' : 'onSave'
         },
 
         initialize: function (options) {
@@ -23,6 +25,34 @@ define([
 
         onAgeChange: function (e) {
             validator.age($('#age').val());
+        },
+
+        onCityChange: function (e) {
+            validator.city($('#city').val());
+        },
+
+        onSave: function (e) {
+            var user = {
+                age: $('#age').val(),
+                city: $('#city').val(),
+                sex: $('#sex').children(':selected')
+            };
+
+            if (!validator.profileUser(user)) return;
+
+            $.ajax('/users', {
+                type: 'PUT',
+                headers: {'date': Date.now() / 1000},
+                data: user
+            })
+                .done(function (res) {
+                    var user = APP.user = res;
+
+                    if (user.city || user.age) {
+                        APP.success('Ok! Now you are ready for <a href="matches">meets</a>');
+                    }
+                })
+                .fail(APP.error);
         }
     });
 });
