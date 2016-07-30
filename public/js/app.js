@@ -40,7 +40,7 @@ define([
         $
             .ajax('/users', {
                 type   : 'GET',
-                headers: {'unix-date': Math.floor(Date.now() / 1000)}
+                headers: {'unix-date': Date.now() / 1000}
             })
             .done(function (res) {
                 APP.user = user = res;

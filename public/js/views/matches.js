@@ -48,11 +48,15 @@ define([
 
             if (!validator.matchUser(user)) return;
 
+            var now = Date.now();
+            var availableTo = new Date(now.getFullYear(), now.getMonth(), now.getDate(), user.availableTo);
+            user.availableTo = now > availableTo.getTime() ? availableTo.getTime() / 1000 + 86400 : availableTo.getTime();
+
             $
                 .ajax('/matches', {
                     type   : 'POST',
                     data   : user,
-                    headers: {'unix-date': Math.floor(Date.now() / 1000)}
+                    headers: {'unix-date': now / 1000}
                 })
                 .done(function (res) {
                     APP.user = res;
@@ -67,7 +71,7 @@ define([
             $
                 .ajax('/matches', {
                     type   : 'GET',
-                    headers: {'unix-date': Math.floor(Date.now() / 1000)}
+                    headers: {'unix-date': Date.now() / 1000}
                 })
                 .done(function (res) {
                     APP.user = res;

@@ -81,4 +81,26 @@ describe('Users Handler', function () {
                 done(err);
             });
     });
+
+    it('should logout user', function (done) {
+
+        agent
+            .get('/users/logout')
+            .expect(200)
+            .end(done);
+    });
+
+    it('should fail with unauthorized', function (done) {
+
+        agent
+            .put('/users')
+            .expect(401)
+            .end(function (err, res) {
+                var body = res.body;
+
+                expect(body).to.have.property('message', 'Unauthorized');
+
+                done(err);
+            });
+    });
 });

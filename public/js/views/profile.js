@@ -45,7 +45,7 @@ define([
             $
                 .ajax('/users', {
                     type   : 'PUT',
-                    headers: {'unix-date': Math.floor(Date.now() / 1000)},
+                    headers: {'unix-date': Date.now() / 1000},
                     data   : user
                 })
                 .done(function (res) {
