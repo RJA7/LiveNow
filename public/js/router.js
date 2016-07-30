@@ -6,6 +6,7 @@ define([
 
     return Backbone.Router.extend({
         routes: {
+            ''       : 'home',
             'home'   : 'home',
             'profile': 'profile',
             'matches': 'matches',
@@ -22,6 +23,7 @@ define([
         },
 
         profile: function () {
+            !APP.user ? this.home() : '';
             this.view ? this.view.undelegateEvents() : '';
             require(['views/profile'], function (View) {
                 this.view = new View();
@@ -29,6 +31,7 @@ define([
         },
 
         matches: function () {
+            !APP.user ? this.home() : '';
             this.view ? this.view.undelegateEvents() : '';
             require(['views/matches'], function (View) {
                 this.view = new View();

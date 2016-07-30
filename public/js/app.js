@@ -21,22 +21,34 @@ define([
 
     var initialize = function () {
         var fragment;
+        var user;
         new Router();
 
         Backbone.history.start({silent: true});
         fragment = Backbone.history.fragment;
         Backbone.history.fragment = '';
 
-        $.get('/users/me', function (user) {
-            APP.user = user;
+        $.get('/users')
+            .done(function (res) {
+                APP.user = user = res;
+            })
+            .always(function () {
+                if (user) {
+                    new MenuView();
 
-            if (APP.user) {
-                new MenuView();
-                APP.navigate(fragment);
-            } else {
-                APP.navigate('home');
-            }
-        });
+                    if (!user.age || !user.city) {
+                        return APP.navigate('profile');
+                    }
+
+                    if (user.matcher) {
+                        return APP.navigate('matches');
+                    }
+
+                    APP.navigate(fragment);
+                } else {
+                    APP.navigate('home');
+                }
+            });
     };
 
     return {

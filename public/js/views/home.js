@@ -9,6 +9,7 @@ define([
         tpl: _.template(homeTemplate),
 
         events: {
+            'click #auth': 'onAuth'
         },
 
         initialize: function (options) {
@@ -17,6 +18,18 @@ define([
 
         render: function () {
             $('#container').html(this.tpl());
+        },
+
+        onAuth: function (e) {
+            APP.user ? this.login() : this.logout();
+        },
+
+        login: function () {
+            window.open()
+        },
+
+        logout: function () {
+            alert('no');
         }
     });
 });
