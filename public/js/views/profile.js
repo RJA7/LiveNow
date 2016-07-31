@@ -79,7 +79,7 @@ define([
                         var user = APP.user = res;
 
                         if (user.city && user.age) {
-                            APP.success('Ok! Now you are ready for <a href="matches">matches</a>');
+                            APP.success('Ok! Now you are ready for <a href="#matches">matches</a>');
                         }
                     })
                     .fail(APP.error);

@@ -85,6 +85,7 @@ define([
                     headers: {'unix-date': Date.now() / 1000}
                 })
                 .done(function (res) {
+                    APP.user.matcher ? APP.socket.emit('message', {_id: APP.user.matcher._id}) : '';
                     APP.user = res;
                     self.render();
                 })

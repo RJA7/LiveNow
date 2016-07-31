@@ -89,7 +89,7 @@ exports.clear = function (req, res, next) {
 
     async.waterfall([
         function (cb) {
-            UserModel.update({matcher: _id}, {matcher: null, availableTo: null}, {lean: true, multi: true}, cb);
+            UserModel.update({matcher: _id}, {matcher: null}, {lean: true, multi: true}, cb);
         },
 
         function (users, cb) {

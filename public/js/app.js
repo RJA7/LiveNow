@@ -58,7 +58,8 @@ define([
         $
             .ajax('/users', {
                 type   : 'GET',
-                headers: {'unix-date': Date.now() / 1000}
+                headers: {'unix-date': Date.now() / 1000},
+                cache: false
             })
             .done(function (res) {
                 APP.user = user = res;

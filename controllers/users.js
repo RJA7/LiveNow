@@ -19,8 +19,8 @@ const validConstraints = {
 module.exports = exports = {};
 
 function clearMatch(userId, matcherId, cb) {
-    UserModel.findByIdAndRemove(userId, function () {
-        UserModel.findByIdAndRemove(matcherId, cb);
+    UserModel.findByIdAndUpdate(userId, {matcher: null}, function () {
+        UserModel.findByIdAndUpdate(matcherId, {matcher: null}, cb);
     })
 }
 
@@ -40,7 +40,7 @@ exports.fetchMe = function (req, res, next) {
             return next(err || ERRORS.ERROR(404, ERRORS.NOT_FOUND));
         }
 
-        if (user.matcher && (user.availableTo > now || user.matcher.availableTo > now)) {
+        if (user.matcher && (user.availableTo < now || user.matcher.availableTo < now)) {
             delete user.matcher;
             return clearMatch(_id, matcherId, function () {
                 res.status(200).send(user);
@@ -67,6 +67,7 @@ exports.changeMe = function (req, res, next) {
     }
 
     reqBody.matcher = null;
+    reqBody.availableTo = null;
 
     UserModel.findByIdAndUpdate(_id, reqBody, {new: true, lean: true}).exec(function (err, user) {
         if (err || !user) {
