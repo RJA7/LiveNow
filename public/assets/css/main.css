@@ -8,12 +8,12 @@
  */
 
 body {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
     font-family: 'EB Garamond', serif;
     font-weight: 300;
     font-size: 16px;
     color: white;
-	overflow-y: hidden;
+    overflow-y: hidden;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
@@ -25,7 +25,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     color: darkgray;
 }
-
 
 /* Paragraph & Typographic */
 p {
@@ -65,7 +64,7 @@ a:after {
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
 
- hr {
+hr {
     display: block;
     height: 1px;
     border: 0;
@@ -74,21 +73,20 @@ a:after {
     padding: 0;
 }
 
-
 /* ==========================================================================
    Wrap Sections
    ========================================================================== */
 
 #headerwrap {
-	background: url(../img/header-bg.jpg) no-repeat center top;
-	margin-top: -10px;
-	padding-top:20px;
-	text-align:center;
-	background-attachment: relative;
-	background-position: center center;
-	min-height: 700px;
-	width: 100%;
-	
+    background: url(../img/header-bg.jpg) no-repeat center top;
+    margin-top: -10px;
+    padding-top: 20px;
+    text-align: center;
+    background-attachment: relative;
+    background-position: center center;
+    min-height: 700px;
+    width: 100%;
+
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
@@ -101,281 +99,261 @@ a:after {
 }
 
 #headerwrap h1 {
-	margin-top: 20px;
-	color: white;
-	font-size: 70px;
-	font-weight: 700;
+    margin-top: 20px;
+    color: white;
+    font-size: 70px;
+    font-weight: 700;
 }
 
 #headerwrap h3 {
-	color: white;
-	font-size: 30px;
-	font-weight: 100;
+    color: white;
+    font-size: 30px;
+    font-weight: 100;
     font-family: 'EB Garamond', serif;
     font-style: oblique;
 }
 
 #headerwrap .logo {
-	text-align: left;
-	margin-left: 20px;
-	margin-top: 15px;
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 15px;
 }
-
 
 /* Footer Wrap */
 
 #f {
-	background: #1a1a1a;
-	padding-top: 70px;
-	padding-bottom: 70px;
-	text-align: center
+    background: #1a1a1a;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    text-align: center
 }
 
 #f h3 {
-	color: white;
-	font-size: 28px;
-	font-weight: 700;
-	letter-spacing: 1px;	
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 #f i {
-	font-size: 8px;
-	color: #fff;
+    font-size: 8px;
+    color: #fff;
     padding: 3px;
 }
 
 #f p {
-	font-size: 20px;
-	color: #f2f2f2;
+    font-size: 20px;
+    color: #f2f2f2;
 }
 
 #f img {
-	text-align: center;
+    text-align: center;
 }
-
 
 /* MENU CONF*/
 
 .menu {
-	position: fixed;
-	right: -200px;
-	width: 260px;
-	height: 100%;
-	top: 0;
-	z-index: 10;
-	text-align: left;
+    position: fixed;
+    right: -200px;
+    width: 260px;
+    height: 100%;
+    top: 0;
+    z-index: 10;
+    text-align: left;
 }
 
 .menu.menu-open {
-	right: 0px;
+    right: 0px;
 }
 
 .menu-wrap {
-	position: absolute;
-	top: 0;
-	left: 60px;
-	background: #1a1a1a;
-	width: 200px;
-	height: 100%;
+    position: absolute;
+    top: 0;
+    left: 60px;
+    background: #1a1a1a;
+    width: 200px;
+    height: 100%;
 }
 
 .menu h1.logo a {
-	font-family: 'Oswald', sans-serif;
-	font-size: 16px;
-	font-weight: 700;
-	letter-spacing: 0.15em;
-	line-height: 40px;
-	text-transform: uppercase;
-	color: #ffffff;
-	margin-top: 20px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    line-height: 40px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-top: 20px;
 }
 
 .menu h1.logo a:hover {
-	color: #f85c37;
+    color: #f85c37;
 }
 
 .menu img.logo {
-	margin: 20px 0;
-	max-width: 160px;
+    margin: 20px 0;
+    max-width: 160px;
 }
 
 .menu a {
-	margin-left: 20px;
-	color: #808080;
-	display: block;
-	font-size: 12px;
-	font-weight: 700;
-	line-height: 40px;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
+    margin-left: 20px;
+    color: #808080;
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .menu a:hover {
-	color: #ffffff;
+    color: #ffffff;
 }
 
 .menu a:active {
-	color: #ffffff;
+    color: #ffffff;
 }
 
 .menu a > i {
-	float: left;
-	display: inline-block;
-	vertical-align: middle; 
-	text-align: left;
-	width: 25px;
-	font-size: 14px;
-	line-height: 40px;
-	margin: 25px 2px;
+    float: left;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    width: 25px;
+    font-size: 14px;
+    line-height: 40px;
+    margin: 25px 2px;
 }
 
 .menu-close {
-	cursor: pointer;
-	display: block;
-	position: absolute;
-	font-size: 14px;
-	color: #808080;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	top: 20px;
-	right: 5px;
-	-webkit-transition: all .1s ease-in-out;
-	   -moz-transition: all .1s ease-in-out;
-		-ms-transition: all .1s ease-in-out;
-		 -o-transition: all .1s ease-in-out;
-			transition: all .1s ease-in-out;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    font-size: 14px;
+    color: #808080;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    top: 20px;
+    right: 5px;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
 .menu-close:hover {
-	color: #ffffff;
-	-webkit-transition: all .1s ease-in-out;
-	   -moz-transition: all .1s ease-in-out;
-		-ms-transition: all .1s ease-in-out;
-		 -o-transition: all .1s ease-in-out;
-			transition: all .1s ease-in-out;
+    color: #ffffff;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
 /* Push the body after clicking the menu button */
 .body-push {
-	overflow-x: hidden;
-	position: relative;
-	left: 0;
+    overflow-x: hidden;
+    position: relative;
+    left: 0;
 }
 
 .body-push-toright {
-	left: 200px;
+    left: 200px;
 }
 
 .body-push-toleft {
-	left: -200px;
+    left: -200px;
 }
 
 .menu,
 .body-push {
-	-webkit-transition: all .3s ease;
-	   -moz-transition: all .3s ease;
-		-ms-transition: all .3s ease;
-		 -o-transition: all .3s ease;
-			transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
 }
 
 #menuToggle {
-	position: absolute;
-	top: 20px;
-	left: 0;
-	z-index: 11;
-	display: block;
-	text-align: center;
-	font-size: 14px;
-	color: #ffffff;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	cursor: pointer;
-	background: rgba(0,0,0,0.25);
-	-webkit-transition: all .1s ease-in-out;
-	   -moz-transition: all .1s ease-in-out;
-		-ms-transition: all .1s ease-in-out;
-		 -o-transition: all .1s ease-in-out;
-			transition: all .1s ease-in-out;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    z-index: 11;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.25);
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
 #menuToggle:hover {
-	color: #ffffff;
-	background: rgba(0,0,0,0.2);
-	-webkit-transition: all .1s ease-in-out;
-	   -moz-transition: all .1s ease-in-out;
-		-ms-transition: all .1s ease-in-out;
-		 -o-transition: all .1s ease-in-out;
-			transition: all .1s ease-in-out;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.2);
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
-
-
-
-
-.grad{
-	position: absolute;
-	top: -20px;
-	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
-	z-index: 1;
-	opacity: 0.7;
+.grad {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -40px;
+    bottom: -40px;
+    width: auto;
+    height: auto;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.65))); /* Chrome,Safari4+ */
+    z-index: 1;
+    opacity: 0.7;
 }
 
-.header{
-	position: absolute;
-	top: calc(50% - 35px);
-	left: calc(50% - 255px);
-	z-index: 2;
+.header {
+    position: absolute;
+    top: calc(50% - 35px);
+    left: calc(50% - 255px);
+    z-index: 2;
 }
 
-.header div{
-	float: left;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 35px;
-	font-weight: 200;
+.header div {
+    float: left;
+    color: #fff;
+    font-family: 'Exo', sans-serif;
+    font-size: 35px;
+    font-weight: 200;
 }
 
-.header div span{
-	color: #333 !important;
+.header div span {
+    color: #333 !important;
 }
 
-.login{
-	position: absolute;
-	top: calc(50% - 75px);
-	left: calc(50% - 200px);
-	height: 150px;
-	width: 400px;
-	padding: 10px;
-	z-index: 2;
+.login {
+    position: absolute;
+    top: calc(50% - 75px);
+    left: calc(50% - 200px);
+    height: 150px;
+    width: 400px;
+    padding: 10px;
+    z-index: 2;
 }
 
-.login input[type=text]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-    margin-top: 10px;
-}
-
-.login input[type=number]{
+.login input[type=text] {
     width: 250px;
     height: 30px;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 2px;
     color: #fff;
     font-family: 'Exo', sans-serif;
@@ -385,11 +363,11 @@ a:after {
     margin-top: 10px;
 }
 
-.login select{
+.login input[type=number] {
     width: 250px;
     height: 30px;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 2px;
     color: #fff;
     font-family: 'Exo', sans-serif;
@@ -399,81 +377,119 @@ a:after {
     margin-top: 10px;
 }
 
-.login option{
-    background: rgba(0,0,0,0.7);
-    color:#fff;
-    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+.login select {
     width: 250px;
     height: 30px;
-    border: 1px solid rgba(255,255,255,0.6);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 2px;
+    color: #fff;
+    font-family: 'Exo', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 4px;
+    margin-top: 10px;
+}
+
+.login option {
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    width: 250px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 2px;
     font-family: 'Exo', sans-serif;
     font-size: 16px;
     font-weight: 400;
 }
 
-.login input[type=password]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-	margin-top: 10px;
+.login input[type=password] {
+    width: 250px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 2px;
+    color: #fff;
+    font-family: 'Exo', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 4px;
+    margin-top: 10px;
 }
 
-.login input[type=button]{
-	width: 260px;
-	height: 35px;
-	background: darkgrey;
-	border: 1px solid #fff;
-	cursor: pointer;
-	border-radius: 2px;
-	color: whitesmoke;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 6px;
-	margin-top: 10px;
+.login input[type=button] {
+    width: 260px;
+    height: 35px;
+    background: darkgrey;
+    border: 1px solid #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    color: whitesmoke;
+    font-family: 'Exo', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 6px;
+    margin-top: 10px;
     opacity: 0.5;
 }
 
-.login input[type=button]:hover{
-	opacity: 0.4;
+.login input[type=button]:hover {
+    opacity: 0.4;
 }
 
-.login input[type=button]:active{
-	opacity: 0.6;
+.login input[type=button]:active {
+    opacity: 0.6;
 }
 
-.login input[type=text]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
+.login input[type=text]:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
-.login input[type=password]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
+.login input[type=password]:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
-.login input[type=button]:focus{
-	outline: none;
+.login input[type=button]:focus {
+    outline: none;
 }
 
-::-webkit-input-placeholder{
-	color: rgba(255,255,255,0.6);
+::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }
 
-::-moz-input-placeholder{
-	color: rgba(255,255,255,0.6);
+::-moz-input-placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }
+
 ::selection {
     background-color: darkgrey;
 }
+
 ::-moz-selection {
     background-color: darkgrey;
+}
+
+#error {
+    z-index: 10;
+    width: 350px;
+    top: -50%;
+    left: calc(50% - 175px);
+    position: fixed;
+    background-color: grey;
+    opacity: 0.6;
+    border-radius: 10px;
+    padding: 10px;
+    -webkit-transition: top 0.5s, left 0.25s, -webkit-transform 1s;
+    -webkit-transform: rotateY(90deg);
+    transform: rotateY(90deg);
+    word-wrap: break-word;
+}
+
+#error.active {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+    top: 27%;
 }

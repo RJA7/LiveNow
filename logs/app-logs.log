@@ -16,3 +16,7 @@
 {"level":"info","message":"DB connected","label":"db\\index.js","timestamp":"2016-07-30T21:46:31.776Z"}
 {"level":"info","message":"Server available on: http://localhost:80","label":"RealLife\\server.js","timestamp":"2016-07-30T21:49:11.664Z"}
 {"level":"info","message":"DB connected","label":"db\\index.js","timestamp":"2016-07-30T21:49:11.689Z"}
+{"level":"info","message":"Server available on: http://localhost:80","label":"RealLife\\server.js","timestamp":"2016-07-31T08:35:55.730Z"}
+{"message":"DB can't connect","name":"MongoError","stack":"Error: connect ECONNREFUSED 127.0.0.1:27017\n    at Object.exports._errnoException (util.js:873:11)\n    at exports._exceptionWithHostPort (util.js:896:20)\n    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1077:14)","level":"error","label":"db\\index.js","timestamp":"2016-07-31T08:35:56.735Z"}
+{"level":"info","message":"Server available on: http://localhost:80","label":"RealLife\\server.js","timestamp":"2016-07-31T08:36:25.078Z"}
+{"level":"info","message":"DB connected","label":"db\\index.js","timestamp":"2016-07-31T08:36:25.112Z"}

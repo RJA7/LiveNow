@@ -18,6 +18,7 @@ function onConnected() {
 
 function onError(err) {
     logger.error('DB can\'t connect', err);
+    process.exit(1);
 }
 
 db.once('connected', onConnected);

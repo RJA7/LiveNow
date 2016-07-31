@@ -13,20 +13,37 @@ define([
     './router',
     'views/menu'
 ], function ($, _, Backbone, Router, MenuView) {
+    var $error = $('#error');
+    var $body = $('#theMenu');
+
+    function alert(message) {
+        $error.html(message);
+        $error.addClass('active');
+
+        var timer = setTimeout(clean, 5000);
+
+        function clean() {
+            $error.empty();
+            $error.removeClass('active');
+            clearTimeout(timer);
+        }
+
+        $body.click(clean);
+    }
 
     APP.error = function (err) {
         var res = err.responseJSON();
         if (!res) return;
         var message = res.errors && res.errors[0] ? res.errors[0] : res.message || err.statusText;
-        message ? window.alert(message) : '';
+        message ? alert(message) : '';
     };
 
     APP.errorMessage = function (message) {
-        window.alert(message);
+        alert(message);
     };
 
     APP.success = function (message) {
-        window.alert(message);
+        alert(message);
     };
 
     APP.navigate = function (url) {

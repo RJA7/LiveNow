@@ -35,7 +35,8 @@ define([
             var $city = $('#city');
             validator.city($city.val(), function (err, res) {
                 err ? $city.val(APP.user.city || '') : '';
-            });
+                this.textLength = $city.val().length;
+            }.bind(this));
         },
 
         onCompletes: function (e) {
@@ -45,10 +46,7 @@ define([
             var selectionEnd;
 
             if (!text) return;
-            if ((this.textLength || APP.city) >= selectionStart) {
-                this.textLength = selectionStart;
-                return;
-            }
+            if (!this.textLength || this.textLength >= selectionStart) return this.textLength = selectionStart;
             this.textLength = selectionStart;
 
             $
