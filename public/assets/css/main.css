@@ -493,3 +493,7 @@ hr {
     transform: rotateY(0deg);
     top: 27%;
 }
+
+#auth {
+    cursor: pointer;
+}

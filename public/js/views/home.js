@@ -32,10 +32,16 @@ define([
                 '&scope=notifications' +
                 '&redirect_uri=' + APP.host + 'vk/auth', 'VK', 'width=800, height=600');
 
-            popup.onClose = function(){
-                popup.close();
+
+            var timer = setTimeout(function () {
                 APP.initUser('home');
-            }
+            }, 4000);
+
+            popup.onClose = function(){
+                clearTimeout(timer);
+                APP.initUser('home');
+                popup.close();
+            };
         },
 
         logout: function () {
