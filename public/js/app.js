@@ -69,6 +69,7 @@ define([
                     APP.menuView = new MenuView();
 
                     if (!user.age || !user.city) {
+                        APP.success('Tell little more about yourself.');
                         return APP.navigate('profile');
                     }
 
@@ -76,7 +77,7 @@ define([
                         return APP.navigate('matches');
                     }
 
-                    APP.navigate(fragment);
+                    APP.navigate('home');
                 } else {
                     APP.navigate('home');
                 }
