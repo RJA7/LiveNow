@@ -6,6 +6,7 @@ const http = require('http');
 const app = require('./app');
 const db = require('./db');
 const server = http.createServer(app);
+require('./socket')(server);
 
 function onListening() {
     logger.info('Server available on: ' + process.env.URL.slice(0, -1) + ':' + process.env.PORT);

@@ -6,7 +6,8 @@ require.config({
         text      : './libs/text/text',
         templates : '../templates',
         views     : './views',
-        validator : './helpers/validator'
+        validator : './helpers/validator',
+        io        : '../socket.io/socket.io'
 
         // collections: './collections'
     },

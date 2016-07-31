@@ -11,8 +11,9 @@ define([
     'underscore',
     'backbone',
     './router',
-    'views/menu'
-], function ($, _, Backbone, Router, MenuView) {
+    'views/menu',
+    'io'
+], function ($, _, Backbone, Router, MenuView, io) {
     var $error = $('#error');
     var $body = $('#theMenu');
 
@@ -83,6 +84,12 @@ define([
 
     var initialize = function () {
         var fragment;
+        var socket = APP.socket = io.connect();
+        socket.on('message', function (data) {
+            if (!data || !APP.user || data._id !== APP.user._id) return;
+            APP.initUser(Backbone.history.fragment);
+        });
+
         new Router();
 
         Backbone.history.start({silent: true});

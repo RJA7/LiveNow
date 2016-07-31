@@ -70,6 +70,7 @@ define([
                     var noMatches = !res.matcher;
                     APP.user = res;
                     self.render(noMatches);
+                    !noMatches ? APP.socket.emit('message', {_id: res.matcher._id}) : '';
                 })
                 .fail(APP.error)
         },
