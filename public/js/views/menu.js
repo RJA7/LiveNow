@@ -16,6 +16,7 @@ define([
 
         initialize: function (options) {
             this.render();
+            this.onMenu();
         },
 
         render: function () {

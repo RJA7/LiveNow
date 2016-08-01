@@ -1,6 +1,6 @@
 var APP = APP || {};
 APP.client_id = '5563809';
-APP.host = 'https://live-now.herokuapp.com/';
+APP.host = 'https://live-now.herokuapp.com/'; // 'http://localhost/';//
 APP.vk = 'https://vk.com/id166633460';
 APP.facebook = 'https://www.facebook.com/kopanskyy';
 APP.google = 'mailto:kopanskyy.roman@gmail.com';
@@ -48,6 +48,7 @@ define([
     };
 
     APP.navigate = function (url) {
+        $('#container').append('<img src="assets/img/load.gif" id="load" />');
         Backbone.history.fragment = '';
         Backbone.history.navigate(url, {trigger: true});
     };

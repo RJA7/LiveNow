@@ -9,12 +9,12 @@ const env = process.env;
 module.exports = exports = {};
 
 exports.auth = function (req, res, next) {
-    const dir = path.join(__dirname.split(path.sep).slice(0, -1).join(path.sep), 'public', 'index.html');
+    const dir = process.env.URL;
     const code = req.query.code;
     let _id;
 
     if (!code) {
-        return res.sendFile(dir);
+        return res.redirect(dir);
     }
 
     async.waterfall([
@@ -51,6 +51,6 @@ exports.auth = function (req, res, next) {
             cb();
         }
     ], function (err) {
-        res.sendFile(dir);
+        res.redirect(dir);
     });
 };

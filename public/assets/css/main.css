@@ -497,3 +497,11 @@ hr {
 #auth {
     cursor: pointer;
 }
+
+#load {
+    position: fixed;
+    width: 10%;
+    top: 40%;
+    left: 45%;
+    z-index: 11;
+}
