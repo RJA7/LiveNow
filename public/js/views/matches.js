@@ -17,7 +17,8 @@ define([
             'change #availableTo'   : 'onAvailableToChange',
             'click #find'           : 'onFind',
             'click #gotIt'          : 'onGotIt',
-            'click #edit'           : 'onEdit'
+            'click #edit'           : 'onEdit',
+            'click #matcherContact' : 'onMatcherContact'
         },
 
         initialize: function (options) {
@@ -91,9 +92,13 @@ define([
                 })
                 .fail(APP.error)
         },
-        
+
         onEdit: function (e) {
             APP.navigate('matches');
+        },
+
+        onMatcherContact: function () {
+            window.open(APP.user.matcher._id);
         }
     });
 });
