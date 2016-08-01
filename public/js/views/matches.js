@@ -98,7 +98,7 @@ define([
         },
 
         onMatcherContact: function () {
-            window.open(APP.user.matcher._id);
+            window.open('https://vk.com/' + APP.user.matcher._id);
         }
     });
 });
