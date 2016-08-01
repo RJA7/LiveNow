@@ -48,7 +48,6 @@ define([
     };
 
     APP.navigate = function (url) {
-        $('#container').append('<img src="assets/img/load.gif" id="load" />');
         Backbone.history.fragment = '';
         Backbone.history.navigate(url, {trigger: true});
     };
@@ -93,7 +92,10 @@ define([
             APP.initUser(Backbone.history.fragment);
         });
 
-        new Router();
+        var router = new Router();
+        router.on('route', function () {
+            $('#container').append('<img src="assets/img/load.gif" id="load" />');
+        });
 
         Backbone.history.start({silent: true});
         fragment = Backbone.history.fragment;
