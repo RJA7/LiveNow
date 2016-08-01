@@ -9,7 +9,7 @@ const env = process.env;
 module.exports = exports = {};
 
 exports.auth = function (req, res, next) {
-    const dir = path.join(__dirname.split(path.sep).slice(0, -1).join(path.sep), 'public', 'closer.html');
+    const dir = path.join(__dirname.split(path.sep).slice(0, -1).join(path.sep), 'public', 'index.html');
     const code = req.query.code;
     let _id;
 

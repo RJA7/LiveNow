@@ -27,21 +27,10 @@ define([
         },
 
         login: function () {
-            var popup = window.open('https://oauth.vk.com/authorize?' +
+            window.location.assign('https://oauth.vk.com/authorize?' +
                 'client_id=' + APP.client_id +
                 '&scope=notifications' +
                 '&redirect_uri=' + APP.host + 'vk/auth', 'VK', 'width=800, height=600');
-
-
-            var timer = setTimeout(function () {
-                APP.initUser('home');
-            }, 4000);
-
-            popup.onClose = function(){
-                clearTimeout(timer);
-                APP.initUser('home');
-                popup.close();
-            };
         },
 
         logout: function () {
